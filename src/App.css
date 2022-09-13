@@ -1,0 +1,14 @@
+.Box {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.Header {
+  height: 50px;
+  border: 1px solid red;
+  text-align: center;
+}
+
+.RepoName {
+  font-weight: bold;
+}
