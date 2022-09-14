@@ -6,14 +6,14 @@ function RepoCard(props: any) {
   return (
     <div className='Box'>
       <p className='RepoName'>{name}</p>
-      <button
+      <p>Was Created At: {pushed_at}</p>
+      <p>Last Update At: {updated_at}</p>
+      <button className="button"
         onClick={() => {
           setSingleView(full_name);
         }}>
         More Info
       </button>
-      <p>Was Created At: {pushed_at}</p>
-      <p>Last Update At: {updated_at}</p>
     </div>
   );
 }

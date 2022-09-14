@@ -3,9 +3,9 @@ function RepoCardSigle(props: any) {
   return (
     <div>
       <header className='Header'>
-        <button onClick={() => setSingleView(false)}> Back </button>
+        <button className="button" onClick={() => setSingleView(false)}> Back </button>
       </header>
-      <div>{JSON.stringify(data, undefined, 4)}</div>
+      <div>{JSON.stringify(data, undefined, 2)}</div>
     </div>
   );
 }
