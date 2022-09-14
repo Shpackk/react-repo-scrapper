@@ -1,33 +1,29 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RepoCard } from './components/RepoCard';
 import { RepoCardSigle } from './components/RepoCardSingle';
 import { extractSingle } from './helpers/dataMutation';
-import { fetchRepo } from './hooks/useRepo';
+import { Loading } from './components/Loading'
+import { useRepo } from './hooks/useRepos'
+import RepoObject from './interfaces/repo';
 
-function SingleRepo(props: any) {
-  const [data, setData] = useState<object>({});
-
-  useEffect(() => {
-    (() => {
-      setData(props.repo);
-    })();
-  }, [props.repo]);
-  return <RepoCardSigle data={data} setSingleView={props.setSingleView} />;
+export type Props = {
+  repo: RepoObject,
+  setRepoName: (name: string) => void;
 }
 
 function App() {
-  const [repos, setRepos] = useState<any>([{}]);
-  const [isSingleView, setSingleView] = useState<string>('');
+  const {repos} = useRepo()
+  const [repoName, setRepoName] = useState<string>('');
 
-  useEffect(() => {
-    fetchRepo().then(repositories => setRepos(repositories));
-  }, []);
+  if(!repos) return <Loading/>
 
-  return isSingleView ? (
-    <SingleRepo repo={extractSingle(repos, isSingleView)} setSingleView={setSingleView} />
+  return repoName ? (
+    <RepoCardSigle repository={extractSingle(repos, repoName)} setRepoName={setRepoName} />
   ) : (
-    repos.map((repo: any) => <RepoCard repo={repo} setSingleView={setSingleView} />)
+    <>
+    {repos.map((repo: RepoObject) => <RepoCard key={repo.name} repo={repo} setRepoName={setRepoName} />)}
+    </>
   );
 }
 export default App;

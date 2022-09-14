@@ -1,5 +1,7 @@
-const extractSingle = (repos: any, name: string): object[] => {
-  return repos.find((repo: any) => repo.full_name === name);
+import RepoObject from "../interfaces/repo";
+
+const extractSingle = (repos: RepoObject[], name: string) => {
+  return repos.find((repo: RepoObject) => repo.full_name === name);
 };
 
 export { extractSingle };

@@ -1,7 +1,9 @@
-function RepoCard(props: any) {
+import { Props } from "../App";
+
+function RepoCard(props: Props) {
   const {
     repo: { name, full_name, pushed_at, updated_at },
-    setSingleView,
+    setRepoName,
   } = props;
   return (
     <div className='Box'>
@@ -10,7 +12,7 @@ function RepoCard(props: any) {
       <p>Last Update At: {updated_at}</p>
       <button className="button"
         onClick={() => {
-          setSingleView(full_name);
+          setRepoName(full_name);
         }}>
         More Info
       </button>

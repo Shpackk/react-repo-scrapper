@@ -1,21 +1,19 @@
 import { Octokit } from '@octokit/core';
+import RepoObject from '../interfaces/repo';
 import { dummyData } from '../services/dataGen';
 
-interface gitRes {
-  status: number;
-  url: string;
-  headers: {};
-  data: [{}];
+interface GitRes {
+  data: RepoObject[];
 }
 
 async function fetchRepo() {
-  let repos: gitRes;
+  let repos: GitRes;
   try {
     const lurkedKeys = dummyData.map((key: string) => lurkKey(new Octokit({ auth: key })));
     const responses = await Promise.allSettled(lurkedKeys);
     const rawRepos = responses.find(res => res.status === 'fulfilled');
-    repos = (rawRepos?.status === 'fulfilled' && rawRepos.value) as gitRes;
-    return repos.data;
+    repos = (rawRepos?.status === 'fulfilled' && rawRepos.value) as GitRes;
+    return repos.data ? repos.data : undefined;
   } catch (error) {
     console.error(error);
   }
