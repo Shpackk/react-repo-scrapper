@@ -2,9 +2,6 @@ import { Octokit } from '@octokit/core';
 import { dummyData } from '../services/dataGen';
 
 interface gitRes {
-  status: number;
-  url: string;
-  headers: {};
   data: [{}];
 }
 
@@ -15,7 +12,7 @@ async function fetchRepo() {
     const responses = await Promise.allSettled(lurkedKeys);
     const rawRepos = responses.find(res => res.status === 'fulfilled');
     repos = (rawRepos?.status === 'fulfilled' && rawRepos.value) as gitRes;
-    return repos.data;
+    return repos.data ? repos.data : undefined;
   } catch (error) {
     console.error(error);
   }
