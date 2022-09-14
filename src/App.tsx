@@ -5,18 +5,25 @@ import { RepoCardSigle } from './components/RepoCardSingle';
 import { extractSingle } from './helpers/dataMutation';
 import { Loading } from './components/Loading'
 import { useRepo } from './hooks/useRepos'
+import RepoObject from './interfaces/repo';
 
+export type Props = {
+  repo: RepoObject,
+  setRepoName: (name: string) => void;
+}
 
 function App() {
   const {repos} = useRepo()
-  const [isSingleView, setSingleView] = useState<string>('');
+  const [repoName, setRepoName] = useState<string>('');
 
   if(!repos) return <Loading/>
 
-  return isSingleView ? (
-    <RepoCardSigle data={extractSingle(repos, isSingleView)} setSingleView={setSingleView} />
+  return repoName ? (
+    <RepoCardSigle repository={extractSingle(repos, repoName)} setRepoName={setRepoName} />
   ) : (
-    repos.map((repo: any) => <RepoCard repo={repo} setSingleView={setSingleView} />)
+    <>
+    {repos.map((repo: RepoObject) => <RepoCard key={repo.name} repo={repo} setRepoName={setRepoName} />)}
+    </>
   );
 }
 export default App;

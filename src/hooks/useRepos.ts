@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import RepoObject from "../interfaces/repo";
 import { fetchRepo } from "../services/fetchRepo";
 
-export function useRepo() {
+export function useRepo(): {repos: RepoObject[] | undefined} {
     const [repos, setRepos] = useState<any>()
 
     useEffect(() => {
