@@ -12,7 +12,7 @@ function RepoCardSigle(props: Props) {
       <header className='Header'>
         <button className="button" onClick={() => setRepoName('')}> Back </button>
       </header>
-      <div>{JSON.stringify(repository, undefined, 2)}</div>
+      <div> <pre>{JSON.stringify(repository, undefined, 2)}</pre></div>
     </div>
   );
 }
